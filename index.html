@@ -22,8 +22,10 @@
     --green: #3fb950;
     --green-dim: #238636;
     --text: #e6edf3;
-    --muted: #7d8590;
+    --muted: #8b949e;
     --accent: #58a6ff;
+    --green-soft: rgba(63,185,80,0.08);
+    --shadow: 0 8px 30px rgba(0,0,0,0.35);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -59,7 +61,12 @@
     transition: all 0.2s;
   }
   nav a:hover, nav a.active { color: var(--text); border-color: var(--border); }
-  nav a.active { color: var(--green); border-color: var(--green); background: rgba(63,185,80,0.08); }
+  nav a.active { color: var(--green); border-color: var(--green); background: var(--green-soft); }
+  .progress {
+    position: absolute; left: 0; bottom: -1px; height: 2px; width: 0;
+    background: linear-gradient(90deg, var(--green), var(--accent));
+    box-shadow: 0 0 8px rgba(63,185,80,0.6);
+  }
 
   /* SECTIONS */
   section { padding: 80px 0; }
@@ -81,13 +88,19 @@
     position: relative;
     overflow: hidden;
   }
-  #home::after {
-    content: '';
-    position: absolute; top: 0; right: -200px; bottom: 0;
-    width: 60%;
-    background: radial-gradient(ellipse at 70% 50%, rgba(63,185,80,0.04) 0%, transparent 70%);
-    pointer-events: none;
+  #home::before, #home::after {
+    content: ''; position: absolute; pointer-events: none; border-radius: 50%;
+    filter: blur(80px);
   }
+  #home::before {
+    width: 420px; height: 420px; top: 10%; left: -160px;
+    background: rgba(88,166,255,0.07);
+  }
+  #home::after {
+    width: 520px; height: 520px; bottom: 5%; right: -120px;
+    background: rgba(63,185,80,0.09);
+  }
+  #home .container { position: relative; z-index: 1; }
   .hero-cmd { color: var(--green); font-size: 13px; margin-bottom: 16px; opacity: 0.8; }
   .hero-cmd::before { content: '$ '; }
   .hero-name {
@@ -99,7 +112,14 @@
     margin-bottom: 16px;
     white-space: nowrap;
   }
-  .hero-name .highlight { color: var(--green); }
+  .hero-name .highlight {
+    color: var(--green);
+    text-shadow: 0 0 30px rgba(63,185,80,0.35);
+  }
+  .hero-name::after {
+    content: '_'; color: var(--green); font-weight: 400; margin-left: 4px;
+    animation: blink 1s step-end infinite;
+  }
   .hero-role {
     font-size: 13px; color: var(--muted);
     letter-spacing: 3px; text-transform: uppercase;
@@ -108,16 +128,26 @@
   }
   .hero-role span { color: var(--green); }
   .intro-box {
-    background: var(--bg3);
+    background: rgba(22,27,34,0.85);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--green);
-    border-radius: 0 8px 8px 0;
-    padding: 20px 24px;
+    border-radius: 10px;
     margin-bottom: 32px;
     max-width: 640px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
   }
+  .term-bar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 14px; background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+  .term-bar i { width: 10px; height: 10px; border-radius: 50%; background: #f85149; }
+  .term-bar i:nth-child(2) { background: #d29922; }
+  .term-bar i:nth-child(3) { background: var(--green); }
+  .term-bar span { margin-left: 10px; font-size: 11px; color: var(--muted); }
+  .intro-body { padding: 18px 22px 20px; }
   .intro-label { color: var(--green); font-size: 12px; margin-bottom: 10px; }
-  .intro-text { font-size: 13px; color: var(--muted); line-height: 1.8; }
+  .intro-text { font-size: 13px; color: var(--muted); line-height: 1.85; }
   .hero-grid { display: grid; grid-template-columns: 1fr 260px; gap: 40px; align-items: start; }
   .tag-list {
     display: grid;
@@ -141,7 +171,7 @@
     text-decoration: none; display: inline-block;
     transition: all 0.2s;
   }
-  .btn-primary:hover { background: #58d168; transform: translateY(-1px); }
+  .btn-primary:hover { background: #58d168; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(63,185,80,0.3); }
   .btn-secondary {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
@@ -151,30 +181,41 @@
     transition: all 0.2s;
   }
   .btn-secondary:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
-  .stats { display: flex; gap: 48px; }
+  .stats { display: flex; gap: 32px; }
+  .stats > div + div { padding-left: 32px; border-left: 1px solid var(--border); }
   .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 800; color: var(--green); }
   .stat-lbl { font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-top: 2px; }
 
   /* SECTION HEADER */
   .sec-cmd { font-size: 12px; color: var(--green); margin-bottom: 10px; letter-spacing: 1px; }
   .sec-title { font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 800; margin-bottom: 40px; }
+  .sec-title::after {
+    content: ''; display: block; width: 48px; height: 3px; margin-top: 14px;
+    border-radius: 2px; background: linear-gradient(90deg, var(--green), transparent);
+  }
 
   /* SKILLS */
   #skills { background: var(--bg2); }
-  .skill-row { margin-bottom: 28px; }
+  .skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .skill-row {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 22px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .skill-row:hover { border-color: var(--green-dim); box-shadow: var(--shadow); }
   .skill-cat {
     font-size: 11px; color: var(--green); letter-spacing: 2px;
-    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
   }
   .skill-cat::before { content: '>'; }
   .tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .stag {
     font-size: 12px; padding: 7px 14px;
     border: 1px solid var(--border); border-radius: 6px;
-    color: #c9d1d9; background: var(--bg3);
+    color: #c9d1d9; background: var(--bg2);
     transition: all 0.15s; cursor: default;
   }
-  .stag:hover { border-color: var(--green); color: var(--green); background: rgba(63,185,80,0.06); }
+  .stag:hover { border-color: var(--green); color: var(--green); background: var(--green-soft); }
 
   /* EXPERIENCE */
   #experience { background: var(--bg); }
@@ -183,18 +224,30 @@
     content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
     width: 2px; background: linear-gradient(to bottom, var(--green), transparent);
   }
-  .exp-item { position: relative; margin-bottom: 40px; }
+  .exp-item {
+    position: relative; margin-bottom: 24px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 10px; padding: 22px 26px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .exp-item:hover { border-color: var(--green-dim); box-shadow: var(--shadow); }
   .exp-item::before {
     content: ''; width: 10px; height: 10px;
     background: var(--green); border-radius: 50%;
-    position: absolute; left: -33px; top: 5px;
-    box-shadow: 0 0 10px rgba(63,185,80,0.5);
+    position: absolute; left: -33px; top: 28px;
+    box-shadow: 0 0 0 4px var(--bg), 0 0 12px rgba(63,185,80,0.6);
   }
-  .exp-company { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-  .exp-meta { font-size: 11px; color: var(--green); letter-spacing: 1px; margin-bottom: 12px; }
-  .exp-meta span { color: var(--muted); margin-left: 12px; }
-  .exp-desc { font-size: 13px; color: var(--muted); line-height: 1.8; }
-  .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .exp-company { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .exp-meta { font-size: 11px; color: var(--green); letter-spacing: 1px; margin-bottom: 16px; }
+  .exp-date {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    border: 1px solid var(--green-dim); background: var(--green-soft);
+  }
+  .exp-meta span { color: var(--muted); margin-left: 8px; }
+  .exp-desc { font-size: 13px; color: var(--muted); line-height: 1.8; list-style: none; }
+  .exp-desc li { position: relative; padding-left: 20px; }
+  .exp-desc li::before { content: '▹'; position: absolute; left: 0; color: var(--green); }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
   .exp-tag {
     font-size: 11px; padding: 3px 10px;
     border: 1px solid var(--green-dim); border-radius: 4px;
@@ -213,13 +266,14 @@
   .proj-card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
     background: linear-gradient(90deg, var(--green), transparent);
-    opacity: 0; transition: opacity 0.2s;
+    opacity: 0.25; transition: opacity 0.2s;
   }
-  .proj-card:hover { border-color: var(--green-dim); transform: translateY(-2px); }
+  .proj-card { display: flex; flex-direction: column; }
+  .proj-card:hover { border-color: var(--green-dim); transform: translateY(-4px); box-shadow: var(--shadow); }
   .proj-card:hover::before { opacity: 1; }
-  .proj-num { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
-  .proj-title { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-  .proj-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  .proj-num { font-size: 11px; color: var(--green); letter-spacing: 1px; margin-bottom: 10px; }
+  .proj-title { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+  .proj-desc { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; flex: 1; }
   .proj-stack { display: flex; flex-wrap: wrap; gap: 6px; }
   .proj-stag {
     font-size: 10px; padding: 3px 8px;
@@ -237,8 +291,14 @@
     text-decoration: none; color: var(--text);
     transition: all 0.2s;
   }
-  .contact-card:hover { border-color: var(--green); transform: translateY(-2px); }
-  .c-icon { font-size: 22px; color: var(--green); }
+  .contact-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .c-icon {
+    flex: none; width: 42px; height: 42px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: var(--green);
+    background: var(--green-soft); border: 1px solid var(--green-dim);
+  }
+  .c-val { overflow-wrap: anywhere; }
   .c-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; margin-bottom: 4px; }
   .c-val { font-size: 13px; }
 
@@ -255,12 +315,37 @@
   .blink { animation: blink 1s step-end infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
+  /* SCROLL REVEAL (class added by JS, so content stays visible without it) */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero-name::after { animation: none; }
+  }
+
   @media (max-width: 768px) {
     nav { padding: 0 16px; }
     .container { padding: 0 20px; }
+    section { padding: 64px 0; }
     .hero-grid { grid-template-columns: 1fr; }
+    .hero-grid > .tag-list { order: -1; max-width: 320px; }
+    .hero-name { white-space: normal; }
+    .hero-role { flex-wrap: wrap; letter-spacing: 2px; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .exp-item { padding: 18px; }
     .contact-grid { grid-template-columns: 1fr; }
     nav a { padding: 4px 8px; font-size: 10px; }
+    .sec-title { font-size: 30px; }
+  }
+  @media (max-width: 520px) {
+    .nav-logo { display: none; }
+    nav { justify-content: space-between; gap: 0; }
+    nav a { letter-spacing: 0.5px; padding: 4px 6px; }
+    .stats { gap: 16px; }
+    .stats > div + div { padding-left: 16px; }
+    .stat-num { font-size: 28px; }
+    .stat-lbl { font-size: 9px; letter-spacing: 1px; }
   }
 </style>
 </head>
@@ -273,6 +358,7 @@
   <a href="#experience">Experience</a>
   <a href="#projects">Projects</a>
   <a href="#contact">Contact</a>
+  <div class="progress"></div>
 </nav>
 
 <!-- HERO -->
@@ -286,11 +372,14 @@
           DevOps Engineer <span>·</span> Infrastructure <span>·</span> Cloud
         </div>
         <div class="intro-box">
-          <div class="intro-label">// 01_introduction</div>
-          <div class="intro-text">
-            DevOps Engineer with hands-on experience in on-premise and cloud infrastructure.<br>
-            Specialized in containerization, CI/CD pipelines, monitoring, and automation.<br>
-            Proficient in Kubernetes, Docker, AWS, Jenkins, and the broader DevOps ecosystem.
+          <div class="term-bar"><i></i><i></i><i></i><span>~/about.md</span></div>
+          <div class="intro-body">
+            <div class="intro-label">// 01_introduction</div>
+            <div class="intro-text">
+              DevOps Engineer with hands-on experience in on-premise and cloud infrastructure.<br>
+              Specialized in containerization, CI/CD pipelines, monitoring, and automation.<br>
+              Proficient in Kubernetes, Docker, AWS, Jenkins, and the broader DevOps ecosystem.
+            </div>
           </div>
         </div>
         <div class="btn-row">
@@ -331,6 +420,7 @@
   <div class="container">
     <div class="sec-cmd">// 02_SKILLS</div>
     <h2 class="sec-title">Technical Stack</h2>
+    <div class="skill-grid">
 
     <div class="skill-row">
       <div class="skill-cat">CLOUD & INFRASTRUCTURE</div>
@@ -422,6 +512,7 @@
         <span class="stag">SQL</span>
       </div>
     </div>
+    </div>
   </div>
 </section>
 
@@ -434,13 +525,13 @@
 
       <div class="exp-item">
         <div class="exp-company">DevOps Engineer</div>
-        <div class="exp-meta">05/2026 – Present <span>· G Payment Joint Stock Company (G-Pay) · Hanoi</span></div>
-        <div class="exp-desc">
-          - Deploy and manage cloud infrastructure on Google Cloud (GKE, SFTP, networking, IAM).<br>
-          - Build and maintain Infrastructure as Code (IaC) using Terraform, Terragrunt, and Ansible.<br>
-          - Operate and deploy Kubernetes, Helm Charts, and ArgoCD for CI/CD and automated deployments.<br>
-          - Implement security monitoring, system backup and restore, and cloud cost optimization.
-        </div>
+        <div class="exp-meta"><span class="exp-date">05/2026 – Present</span> <span>G Payment Joint Stock Company (G-Pay) · Hanoi</span></div>
+        <ul class="exp-desc">
+          <li>Deploy and manage cloud infrastructure on Google Cloud (GKE, SFTP, networking, IAM).</li>
+          <li>Build and maintain Infrastructure as Code (IaC) using Terraform, Terragrunt, and Ansible.</li>
+          <li>Operate and deploy Kubernetes, Helm Charts, and ArgoCD for CI/CD and automated deployments.</li>
+          <li>Implement security monitoring, system backup and restore, and cloud cost optimization.</li>
+        </ul>
         <div class="exp-tags">
           <span class="exp-tag">Terraform</span>
           <span class="exp-tag">Terragrunt</span>
@@ -457,18 +548,18 @@
 
       <div class="exp-item">
         <div class="exp-company">DevOps & System Engineer</div>
-        <div class="exp-meta">02/2025 – 05/2026 <span>· PayTech Joint Stock Company · Cau Giay, Hanoi</span></div>
-        <div class="exp-desc">
-          - Product: Mypoint (Loyalty &amp; Rewards Mobile Application).<br>
-          - Built and maintained monitoring stack with Grafana and Prometheus, including automated alerting.<br>
-          - Installed and configured Nginx Proxy, Firewall, VMware vSphere, and Supervisor.<br>
-          - Administered Database Clusters and Replication for MariaDB, MongoDB, and Cassandra.<br>
-          - Managed SIEM with ELK Stack; handled code and data backup/deployment; wrote shell automation scripts.<br>
-          - Deployed Jenkins CI/CD pipelines, automating build and deployment workflows.<br>
-          - Performed scheduled backups and restore verification to ensure system data integrity.<br>
-          - Delivered VAS, SMS, Email Marketing, and loyalty point integration projects for Mobifone.<br>
-          - Configured HA with Keepalived, Nginx Proxy, and MariaDB Replication.
-        </div>
+        <div class="exp-meta"><span class="exp-date">02/2025 – 05/2026</span> <span>PayTech Joint Stock Company · Cau Giay, Hanoi</span></div>
+        <ul class="exp-desc">
+          <li>Product: Mypoint (Loyalty &amp; Rewards Mobile Application).</li>
+          <li>Built and maintained monitoring stack with Grafana and Prometheus, including automated alerting.</li>
+          <li>Installed and configured Nginx Proxy, Firewall, VMware vSphere, and Supervisor.</li>
+          <li>Administered Database Clusters and Replication for MariaDB, MongoDB, and Cassandra.</li>
+          <li>Managed SIEM with ELK Stack; handled code and data backup/deployment; wrote shell automation scripts.</li>
+          <li>Deployed Jenkins CI/CD pipelines, automating build and deployment workflows.</li>
+          <li>Performed scheduled backups and restore verification to ensure system data integrity.</li>
+          <li>Delivered VAS, SMS, Email Marketing, and loyalty point integration projects for Mobifone.</li>
+          <li>Configured HA with Keepalived, Nginx Proxy, and MariaDB Replication.</li>
+        </ul>
         <div class="exp-tags">
           <span class="exp-tag">Grafana</span>
           <span class="exp-tag">Prometheus</span>
@@ -488,18 +579,18 @@
 
       <div class="exp-item">
         <div class="exp-company">System Administrator</div>
-        <div class="exp-meta">09/2022 – 02/2025 <span>· Sconnect Vietnam Technology Investment and Services Co., Ltd. · Hanoi</span></div>
-        <div class="exp-desc">
-          - Deployed and managed VMware ESXi virtualization infrastructure.<br>
-          - Provisioned and deployed internal LEMP stack projects (Linux, Nginx, MariaDB/MySQL, PHP) for staff use.<br>
-          - Configured permissions and access control for PHP, Nginx, MariaDB, and MySQL services.<br>
-          - Managed company domains on Cloudflare, including DNS configuration and SSL certificates.<br>
-          - Deployed and maintained NAS/Synology server infrastructure.<br>
-          - Administered Google Workspace, VPS servers, Draytek devices, and Aruba Wi-Fi systems.<br>
-          - Set up monitoring with Prometheus, Grafana, and Zabbix.<br>
-          - Managed AWS services: EC2, IAM, CloudWatch, and Lightsail.<br>
-          - Deployed and maintained self-hosted GitLab server.
-        </div>
+        <div class="exp-meta"><span class="exp-date">09/2022 – 02/2025</span> <span>Sconnect Vietnam Technology Investment and Services Co., Ltd. · Hanoi</span></div>
+        <ul class="exp-desc">
+          <li>Deployed and managed VMware ESXi virtualization infrastructure.</li>
+          <li>Provisioned and deployed internal LEMP stack projects (Linux, Nginx, MariaDB/MySQL, PHP) for staff use.</li>
+          <li>Configured permissions and access control for PHP, Nginx, MariaDB, and MySQL services.</li>
+          <li>Managed company domains on Cloudflare, including DNS configuration and SSL certificates.</li>
+          <li>Deployed and maintained NAS/Synology server infrastructure.</li>
+          <li>Administered Google Workspace, VPS servers, Draytek devices, and Aruba Wi-Fi systems.</li>
+          <li>Set up monitoring with Prometheus, Grafana, and Zabbix.</li>
+          <li>Managed AWS services: EC2, IAM, CloudWatch, and Lightsail.</li>
+          <li>Deployed and maintained self-hosted GitLab server.</li>
+        </ul>
         <div class="exp-tags">
           <span class="exp-tag">VMWare ESXI</span>
           <span class="exp-tag">AWS</span>
@@ -629,6 +720,7 @@
 <script>
   const sections = document.querySelectorAll('section');
   const navLinks = document.querySelectorAll('nav a');
+  const progress = document.querySelector('.progress');
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(s => {
@@ -637,7 +729,27 @@
     navLinks.forEach(a => {
       a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (max > 0 ? window.scrollY / max * 100 : 0) + '%';
   });
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        el.classList.add('in');
+        io.unobserve(el);
+        // drop reveal styles once shown so hover transitions/transforms work normally
+        setTimeout(() => { el.classList.remove('reveal', 'in'); el.style.transitionDelay = ''; }, 900);
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.sec-title, .skill-row, .exp-item, .proj-card, .contact-card').forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (i % 4) * 60 + 'ms';
+      io.observe(el);
+    });
+  }
 </script>
 </body>
 </html>
