@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dao Duc Hieu | DevOps Engineer</title>
+<meta name="description" content="Dao Duc Hieu - DevOps Engineer in Hanoi. Kubernetes, GKE, Terraform, ArgoCD, CI/CD, monitoring and cloud infrastructure.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dao Duc Hieu | DevOps Engineer">
+<meta property="og:description" content="DevOps Engineer · Infrastructure · Cloud — Kubernetes, GKE, Terraform, ArgoCD, CI/CD, monitoring.">
+<meta property="og:url" content="https://hieusystemit.github.io/portfolio/">
+<meta property="og:image" content="https://hieusystemit.github.io/portfolio/avatar.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0e13'/%3E%3Ctext x='4' y='22' font-family='monospace' font-size='16' font-weight='700' fill='%233fb950'%3E&gt;_%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -248,15 +255,17 @@
   .blink { animation: blink 1s step-end infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  /* TYPING ANIMATION */
-  .typing { overflow: hidden; white-space: nowrap; animation: typing 1.5s steps(10, end) forwards; }
-  @keyframes typing { from { width: 0; } to { width: 100%; } }
+  /* AVATAR */
+  .avatar {
+    width: 150px; height: 150px; border-radius: 50%;
+    border: 2px solid var(--green); margin: 0 auto 10px;
+    background: url('avatar.jpg') 33% 20% / 250% auto no-repeat var(--bg3);
+  }
 
   @media (max-width: 768px) {
     nav { padding: 0 16px; }
     .container { padding: 0 20px; }
     .hero-grid { grid-template-columns: 1fr; }
-    .tag-list { flex-direction: row; flex-wrap: wrap; padding-top: 0; }
     .contact-grid { grid-template-columns: 1fr; }
     nav a { padding: 4px 8px; font-size: 10px; }
   }
@@ -296,16 +305,14 @@
           <a href="https://www.linkedin.com/in/%C4%91%E1%BB%A9c-hi%E1%BA%BFu-911176302/" target="_blank" class="btn-secondary">LINKEDIN</a>
         </div>
         <div class="stats">
-          <div><div class="stat-num">2+</div><div class="stat-lbl">YRS EXPERIENCE</div></div>
+          <div><div class="stat-num">3+</div><div class="stat-lbl">YRS EXPERIENCE</div></div>
           <div><div class="stat-num">10+</div><div class="stat-lbl">PROJECTS</div></div>
           <div><div class="stat-num">15+</div><div class="stat-lbl">TOOLS MASTERED</div></div>
         </div>
       </div>
       <div class="tag-list">
         <div style="text-align:center; margin-bottom: 8px; grid-column: 1 / -1;">
-          <img src="avatar.jpg"
-               style="width:150px; height:150px; border-radius:50%;
-                      border: 2px solid #3fb950; object-fit:cover; display:block; margin:0 auto 10px;">
+          <div class="avatar" role="img" aria-label="Dao Duc Hieu"></div>
           <span style="font-size:12px; color:#e6edf3; letter-spacing:1px; font-weight:700; white-space:nowrap;">ĐÀO ĐỨC HIẾU</span>
         </div>
         <span class="tag-pill">Kubernetes</span>
@@ -351,7 +358,6 @@
         <span class="stag">Kubernetes</span>
         <span class="stag">GKE</span>
         <span class="stag">Helm</span>
-        <span class="stag">ArgoCD</span>
       </div>
     </div>
 
@@ -363,7 +369,7 @@
         <span class="stag">Git</span>
         <span class="stag">GitLab CI</span>
         <span class="stag">Jira</span>
-        <span class="stag">Confluent</span>
+        <span class="stag">Confluence</span>
       </div>
     </div>
 
@@ -393,7 +399,7 @@
     </div>
 
     <div class="skill-row">
-      <div class="skill-cat">DATABASES</div>
+      <div class="skill-cat">DATABASES & MESSAGING</div>
       <div class="tags">
         <span class="stag">PostgreSQL</span>
         <span class="stag">MariaDB</span>
@@ -416,8 +422,7 @@
     <div class="skill-row">
       <div class="skill-cat">PROGRAMMING & SCRIPTING</div>
       <div class="tags">
-        <span class="stag">Bash Script</span>
-        <span class="stag">Shell Script</span>
+        <span class="stag">Bash / Shell Script</span>
         <span class="stag">Python</span>
         <span class="stag">SQL</span>
       </div>
@@ -606,9 +611,9 @@
         <div class="c-icon">in</div>
         <div><div class="c-label">LINKEDIN</div><div class="c-val">Duc Hieu</div></div>
       </a>
-      <a href="https://github.com/hieusystemIT" target="_blank" class="contact-card">
+      <a href="https://github.com/hieuddevops" target="_blank" class="contact-card">
         <div class="c-icon">gh</div>
-        <div><div class="c-label">GITHUB</div><div class="c-val">https://github.com/hieusystemIT</div></div>
+        <div><div class="c-label">GITHUB</div><div class="c-val">https://github.com/hieuddevops</div></div>
       </a>
       <a href="https://www.facebook.com/hiuhineh/" target="_blank" class="contact-card">
         <div class="c-icon">fb</div>
